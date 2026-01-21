@@ -1,0 +1,4 @@
+aiogram==3.3.0
+aiohttp==3.9.1
+yt-dlp
+flask
