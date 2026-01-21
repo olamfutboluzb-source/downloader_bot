@@ -6,7 +6,7 @@ def download_video(url):
     os.makedirs(outdir, exist_ok=True)
 
     ydl_opts = {
-        'cookiefile': 'cookies.txt',  # ВОТ ОНА — ТВОЯ ВИЗА! 🍪🎫
+        'cookiefile': 'cookies.txt',  #  🍪🎫
         'format': 'bestvideo[height<=1080][vcodec^=avc1]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'outtmpl': f'{outdir}/%(title)s.%(ext)s',
         'merge_output_format': 'mp4',
