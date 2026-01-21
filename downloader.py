@@ -1,3 +1,7 @@
+import os
+import yt_dlp
+
+
 def download_video(url):
     outdir = 'downloads'
     os.makedirs(outdir, exist_ok=True)
