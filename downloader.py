@@ -5,24 +5,25 @@ def download_video(url):
     outdir = 'downloads'
     os.makedirs(outdir, exist_ok=True)
 
-    ydl_opts = {
-        'cookiefile': 'cookies.txt',  #  🍪🎫
-        'format': 'bestvideo[height<=1080][vcodec^=avc1]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+ ydl_opts = {
+        'cookiefile': 'cookies.txt',
+        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best', # Упростили формат
         'outtmpl': f'{outdir}/%(title)s.%(ext)s',
         'merge_output_format': 'mp4',
         'noplaylist': True,
         'quiet': True,
-        'postprocessor_args': ['-c', 'copy', '-movflags', '+faststart'],
-
+        # escape 403 Forbidden
+        'nocheckcertificate': True,
+        'ignoreerrors': False,
+        'logtostderr': False,
+        'addmetadata': True,
+        
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-            'Accept-Language': 'en-US,en;q=0.5',
-            'Referer': 'https://www.google.com/',
         },
         'extractor_args': {
             'youtube': {
-                'player_client': ['android', 'web'],
+                'player_client': ['web'], # only web
                 'skip': ['dash', 'hls']
             }
         },
