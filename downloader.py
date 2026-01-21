@@ -1,13 +1,12 @@
 import os
 import yt_dlp
 
-
 def download_video(url):
     outdir = 'downloads'
     os.makedirs(outdir, exist_ok=True)
 
     ydl_opts = {
-        # ТВОИ НАСТРОЙКИ (не трогал)
+        'cookiefile': 'cookies.txt',  # ВОТ ОНА — ТВОЯ ВИЗА! 🍪🎫
         'format': 'bestvideo[height<=1080][vcodec^=avc1]+bestaudio[ext=m4a]/best[ext=mp4]/best',
         'outtmpl': f'{outdir}/%(title)s.%(ext)s',
         'merge_output_format': 'mp4',
@@ -15,7 +14,6 @@ def download_video(url):
         'quiet': True,
         'postprocessor_args': ['-c', 'copy', '-movflags', '+faststart'],
 
-        # ДОБАВИЛ ЗАЩИТУ ДЛЯ YOUTUBE (чтобы качало)
         'http_headers': {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
