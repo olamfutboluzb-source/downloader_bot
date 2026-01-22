@@ -2,17 +2,16 @@ import yt_dlp
 import os
 
 def download_audio(url):
-    outdir = '/tmp/downloads' # Используем /tmp для надежности
+    outdir = '/tmp/downloads'
     os.makedirs(outdir, exist_ok=True)
     
-    # Путь к кукам
     base_path = os.path.dirname(os.path.abspath(__file__))
     cookies_path = os.path.join(base_path, 'cookies.txt')
 
     ydl_opts = {
         'cookiefile': cookies_path,
         'format': 'bestaudio/best',
-        'outtmpl': f'{outdir}/%(title)s.%(ext)s',
+        'outtmpl': f'{outdir}/%(id)s.%(ext)s', # Используем ID видео
         'noplaylist': True,
         'quiet': True,
         'nocheckcertificate': True,
@@ -31,9 +30,9 @@ def download_audio(url):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=True)
             file_path = ydl.prepare_filename(info)
-            # Так как мы конвертируем в mp3, расширение изменится
+            # yt-dlp вернет путь с оригинальным расширением, но ffmpeg сделает .mp3
             final_path = os.path.splitext(file_path)[0] + ".mp3"
             return final_path
     except Exception as e:
-        print(f"❌ Ошибка аудио: {e}")
+        print(f"❌ Audio Error: {e}")
         return None
