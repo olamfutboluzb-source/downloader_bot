@@ -9,7 +9,7 @@ from router import router as work_router
 app = Flask('')
 @app.route('/')
 def home():
-    return "Salamanca Business is Active!"
+    return "Salamanca Business is Active! 🌵"
 
 def run():
     app.run(host='0.0.0.0', port=7860)
@@ -25,15 +25,12 @@ async def main():
     logging.basicConfig(level=logging.INFO)
     keep_alive()
     
-    # Инициализируем бота без лишних проверок команд
     bot = Bot(token=TOKEN)
     dp = Dispatcher()
     dp.include_router(work_router)
     
-    print("🚀 Попытка запуска Саламанки...")
-    
+    print("🚀 Саламанка вышла на связь...")
     try:
-        # Убрали set_my_commands и delete_webhook, чтобы не спамить запросами
         await dp.start_polling(bot)
     except Exception as e:
         print(f"❌ Ошибка сети: {e}")
