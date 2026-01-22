@@ -5,13 +5,14 @@ def download_video(url):
     outdir = '/tmp/downloads'
     os.makedirs(outdir, exist_ok=True)
     
+    # Путь к кукам (должны лежать в корне проекта)
     base_path = os.path.dirname(os.path.abspath(__file__))
     cookies_path = os.path.join(base_path, 'cookies.txt')
 
     ydl_opts = {
         'cookiefile': cookies_path,
         'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best', 
-        'outtmpl': f'{outdir}/%(title)s.%(ext)s',
+        'outtmpl': f'{outdir}/%(id)s.%(ext)s', # Используем ID, чтобы не было ошибок в именах
         'merge_output_format': 'mp4',
         'noplaylist': True,
         'quiet': True,
