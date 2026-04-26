@@ -10,7 +10,7 @@ from aiogram.types import (
 from aiogram.filters import Command
 from aiogram.utils.chat_action import ChatActionSender
 
-# Импорт твоих скриптов
+
 from downloader import download_video
 from audio_downloader import download_audio
 
@@ -19,7 +19,7 @@ router = Router()
 url_storage = {}
 user_langs = {}
 
-# Статистика (пишем в /tmp, чтобы Render не ругался)
+
 DB_FILE = "/tmp/stats.json"
 
 def update_stats(user_id, is_download=False):
@@ -41,7 +41,7 @@ def update_stats(user_id, is_download=False):
     except:
         pass
 
-# Настройки каналов и админов
+
 CHANNELS = ["@Iskandar_Tg10"]
 ADMINS = [821943413]
 
@@ -57,7 +57,7 @@ async def check_sub(bot: Bot, user_id: int):
             continue
     return False
 
-# Твои тексты (Полный боекомплект)
+
 TEXTS = {
     "uzb": {
         "start": "👋 <b>Assalomu alaykum!</b>\n\nMen TikTok, Instagram va YouTube-dan videolarni yuklayman 📥, shuningdek ularni <b>MP3 audio</b> formatiga o'girib beraman! 🎵✨\n\n🚀 <b>Boshlash uchun video havolasini yuboring!</b> 🔗⬇️",
@@ -97,7 +97,7 @@ TEXTS = {
     }
 }
 
-# Клавиатуры
+
 def get_main_kb(lang):
     btns = {
         "uzb": ["⚙️ Sozlamalar", "👤 Bot haqida", "📖 Ko'rsatma"],
@@ -120,7 +120,7 @@ def get_sub_kb(lang):
         [InlineKeyboardButton(text=text, callback_data=f"check_sub_{lang}")]
     ])
 
-# Хендлеры
+
 @router.message(Command("start"))
 @router.message(Command("lang"))
 async def cmd_start_lang(message: Message):
@@ -200,11 +200,11 @@ async def process_download(callback: CallbackQuery, bot: Bot):
                 await callback.message.answer(f"❌ Send Error: {e}")
             finally:
                 if os.path.exists(path):
-                    os.remove(path) # Чистим место
+                    os.remove(path) 
         else:
             await status_msg.edit_text(TEXTS[lang]["error"], parse_mode="HTML")
 
-# Хендлеры кнопок меню
+
 @router.message(F.text.in_(["⚙️ Настройки", "⚙️ Sozlamalar", "⚙️ Settings"]))
 async def settings_h(message: Message):
     lang = user_langs.get(message.from_user.id, "rus")
